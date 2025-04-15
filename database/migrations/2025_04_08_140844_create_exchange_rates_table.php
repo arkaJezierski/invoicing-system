@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('exchange_rates', function (Blueprint $table) {
             $table->id();
             $table->string('currency_code', 3);
-            $table->decimal('rate', 15, 6);
             $table->date('effective_date');
-            $table->enum('table_type', ['A', 'B', 'C']);
+            $table->decimal('mid', 15, 6)->nullable();
+            $table->decimal('bid', 15, 6)->nullable();
+            $table->decimal('ask', 15, 6)->nullable();
             $table->timestamps();
 
-            $table->unique(['currency_code', 'effective_date', 'table_type'], 'exchange_rate_unique');
+            $table->unique(['currency_code', 'effective_date']);
         });
     }
 
