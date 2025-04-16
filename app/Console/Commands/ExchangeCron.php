@@ -19,7 +19,7 @@ class ExchangeCron extends Command
      *
      * @var string
      */
-    protected $signature = 'exchange:cron';
+    protected $signature = 'exchange:cron {--days=7 : Number of days back to download the operation}';
     protected Client $client;
 
     /**
@@ -41,6 +41,7 @@ class ExchangeCron extends Command
     public function handle()
     {
         $this->localTime = microtime(true);
+        $days = (int) $this->option('days');
 
         try {
             $httpClientBuilder = new Builder();
@@ -50,7 +51,7 @@ class ExchangeCron extends Command
                 'User-Agent' => 'php-nbp-api (https://github.com/johnzuk/php-nbp-api)',
             ]));
             $this->nbpService = new NBPService(new Client($httpClientBuilder));
-            $startDate = (new DateTimeImmutable)->modify('-7 days');
+            $startDate = (new DateTimeImmutable)->modify("-$days days");
             $endDate =  new DateTimeImmutable;
 
             $this->info('Imported currency exchange rates. Range ' . $startDate->format('Y-m-d') . ' - ' . $endDate->format('Y-m-d'));

@@ -17,7 +17,11 @@ class ExchangeRateFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'currency_code' => $this->faker->currencyCode(),
+            'effective_date' => $this->faker->date(),
+            'mid' => $this->faker->randomFloat(4, 1, 5),
+            'bid' => $this->faker->randomFloat(4, 1, 5),
+            'ask' => $this->faker->randomFloat(4, 1, 5)
         ];
     }
 }
