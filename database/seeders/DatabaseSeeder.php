@@ -15,9 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
 
-        User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        if ($this->command->option('prod')) {
+            $this->call(ProductionSeeder::class);
+        } elseif ($this->command->option('local')) {
+        $this->call(LocalSeeder::class);
+        }
+
     }
 }

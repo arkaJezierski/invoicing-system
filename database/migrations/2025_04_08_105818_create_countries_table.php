@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->boolean('is_company')->default(true);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('country_id')->nullable()->constrained('countries')->nullOnDelete();
+            $table->string('pl_name');
+            $table->string('code', 3)->unique();
+            $table->string('currency');
+            $table->string('currency_symbol', 10);
+            $table->string('currency_code', 5);
             $table->timestamps();
-
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('countries');
     }
 };
