@@ -26,31 +26,30 @@ class ExchangeRateController extends Controller
         $end_date = new DateTimeImmutable;
 
         $field = [
-            'currency_id' => null,
+            'currency' => null,
             'rate_id' => 'mid',
-            'start_date' => $start_date->modify('-90 days')->format('Y-m-d'),
+            'start_date' => $start_date->modify('-30 days')->format('Y-m-d'),
             'end_date' => $end_date->format('Y-m-d')
         ];
 
         if($request->get('currency_id')) {
             $validated = $request->validate([
-                'currency_id' => 'required|string',
-                'rate_id' => 'required|in:mid',
+                'currency' => 'required|string',
+                'rate_id' => 'required|in:mid,bid,ask',
                 'start_date' => 'required|date',
                 'end_date' => 'required|date',
             ]);
 
             $date = new DateTime($request->get('start_date'));
             $date->modify("-1 day")->format('Y-m-d');
-            $field['currency_id'] = $request->get('currency_id');
+            $field['currency'] = $request->get('currency');
             $field['rate_id'] = $request->get('rate_id');
             $field['start_date'] = $request->get('start_date');
             $field['end_date'] = $request->get('end_date');
 
-            $currency_rates = ExchangeRate::with('currency_quote')->select()
-                ->whereBetween('date', [$request->get('start_date'), $request->get('end_date')])
-                ->where('currency', '=', $currency->where('id', '=', $request->get('currency_id'))->pluck('name')->first())
-                ->orderBy('date', 'desc')
+            $currency_rates = ExchangeRate::whereBetween('date', [$request->get('start_date'), $request->get('end_date')])
+                ->where('currency', '=', $request->get('currency'))
+                ->orderBy('effective_date', 'desc')
                 ->get();
 
             $currency_rates_asc = ExchangeRate::query()->select()

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('exchange_rates', function (Blueprint $table) {
             $table->id();
-            $table->string('currency_code', 3);
+            $table->char('currency_code', 3);
             $table->date('effective_date');
             $table->decimal('mid', 15, 6)->nullable();
             $table->decimal('bid', 15, 6)->nullable();

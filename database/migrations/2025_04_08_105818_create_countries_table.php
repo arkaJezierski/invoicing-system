@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('pl_name');
-            $table->string('code', 3)->unique();
+            $table->char('code', 3)->unique();
             $table->string('currency');
-            $table->string('currency_symbol', 10);
-            $table->string('currency_code', 5);
+            $table->char('currency_symbol', 10);
+            $table->char('currency_code', 5);
             $table->timestamps();
         });
     }
