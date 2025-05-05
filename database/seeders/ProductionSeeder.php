@@ -17,7 +17,6 @@ class ProductionSeeder extends Seeder
             [
                 'name' => 'ajezierski',
                 'email' => 'kontakt@ajezierski.pl',
-                'image' => 'mqaQBLyOQTPQVbxtAhPgRMCcufpmmweW.png',
                 'password' => Hash::make('password')
             ]
         );

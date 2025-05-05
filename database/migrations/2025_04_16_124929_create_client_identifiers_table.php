@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreignId('country_id')->nullable()->constrained('countries')->nullOnDelete();
             $table->timestamps();
 
-            $table->unique(['client_id', 'type']);
-
+            $table->unique(['client_id', 'type_id']);
         });
     }
 
