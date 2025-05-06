@@ -21,9 +21,10 @@ class ProductionSeeder extends Seeder
             ]
         );
 
-//        $this->call([
-            // TODO
-//        ]);
+        //TODO Complete Seeders
+        $this->call([
+            CountrySeeder::class,
+        ]);
 
     }
 }

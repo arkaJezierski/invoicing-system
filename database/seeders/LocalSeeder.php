@@ -14,7 +14,6 @@ class LocalSeeder extends Seeder
     {
         $this->call([
             CountrySeeder::class,
-
         ]);
     }
 }

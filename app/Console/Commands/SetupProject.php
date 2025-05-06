@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
 
 class SetupProject extends Command
 {
-    protected $signature = 'project:setup {--dev} {--local} {--composer-dump} {--no-garbage} {--npm}';
+    protected $signature = 'project:setup {--dev} {--local} {--prod} {--composer-dump} {--no-garbage} {--npm}';
 
     protected $description = 'Setup the project by copying .env, migrating, and seeding the database';
 
@@ -49,6 +49,10 @@ class SetupProject extends Command
 
         if ($this->option('local')) {
             Artisan::call('db:seed --local', [], $this->output);
+        }
+
+        if ($this->option('prod')) {
+            Artisan::call('db:seed --prod', [], $this->output);
         }
 
         $this->info('Running optimize:clear...');
