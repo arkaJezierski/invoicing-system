@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DTO\GUSDTO;
+use App\Data\GUSData;
 use App\Enums\Currency;
 use App\Models\ExchangeRate;
 use Carbon\Carbon;
@@ -39,7 +39,7 @@ class GUSService
         $raw = $this->gus->getByNip($nip);
         if (!$raw) return null;
 
-        return GUSDTO::gusParserCreate($raw);
+        return GUSData::gusParserCreate($raw);
     }
 
 
